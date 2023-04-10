@@ -26,6 +26,10 @@ in  GHA.Workflow::{
           GHA.OnDetails::{
           , push = Some GHA.OnPush::{ branches = Some [ "master" ] }
           }
+    , concurrency = Some GHA.ConcurrencyGroup::{
+      , group = "publish"
+      , cancel-in-progress = Some True
+      }
     , jobs = toMap
         { publish = GHA.Job::{
           , runs-on = GHA.RunnerPlatform.ubuntu-latest
