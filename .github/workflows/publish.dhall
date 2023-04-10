@@ -17,7 +17,13 @@ let setupSBT =
           )
       }
 
-let publish = GHA.Step::{ name = "publish package", run = Some "sbt publish" }
+let publish =
+      GHA.Step::{
+      , name = "publish package"
+      , run = Some "sbt publish"
+      , env = Some
+          (toMap { GITHUB_TOKEN = GHA.mkExpression "secrets.GITHUB_TOKEN" })
+      }
 
 in  GHA.Workflow::{
     , name = Some "publish"
