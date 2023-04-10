@@ -1,0 +1,21 @@
+jobs:
+  publish:
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out
+        uses: "actions/checkout@v3"
+      - name: setup sbt
+        uses: "actions/setup-java@v3"
+        with:
+          cache: sbt
+          distribution: temurin
+          java-version: '17'
+      - name: publish package
+        run: sbt publish
+name: publish
+on:
+  push:
+    branches:
+      - master
